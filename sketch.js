@@ -44,28 +44,22 @@ function setup() {
 
 function draw() {
  background(0);
- 
+ if(gameState === PLAY){
 
- 
- if(gameState === PLAY)
- {
-      /*Uncomment correct option 
-        according to PLAY state*/  
-      // // moving ground
-       scene.velocityX = -3 
+  // moving ground
+    scene.velocityX = -3 
 
-      if (scene.x < 0){
-       scene.x = scene.width/2;
-      }
-
-      // //moving bow
-       bow.y = World.mouseY      
-      
-
+    if (scene.x < 0){
+      scene.x = scene.width/2;
+    }
+  
+  //moving bow
+  bow.y = World.mouseY
   
    // release arrow when space key is pressed
   if (keyDown("space")) {
-    createArrow();  
+    createArrow();
+    
   }
   
   //creating continous enemies
@@ -84,50 +78,29 @@ function draw() {
       default:break;
     }
   }
- }
+
+  if (frameCount>300) {
+    //red.destroyEach();
+
+    gameState=END; 
 
 
+}
+ 
   if (gameState === END) {
-    /*Uncomment correct option 
-      according to END state*/  
-      //// moving ground
-      //scene.velocityX = -3 
-      ///destroy bow
-      bow.destroy();
-      ////reset the background
-       if (scene.x < 0){
-          scene.x = scene.width/2;
-         }
-      ////moving bow
-      /// bow.y = World.mouseY      
-      ///stop background movement
-      scene.velocityX = 0;
-
-  }
-
-if (frameCount>1000) {
-  //red.destroyEach();
-  gameState=END; 
+  bow.destroy();
+  scene.velocityX = 0;
 }
 
 
 
 
- 
 
+ }
+  
   drawSprites();
   text("Score: "+ score, 300,50);
 }
-
-
-
-
-
-
-
-
-
-
 
 
 function redBalloon() {
@@ -173,6 +146,6 @@ function pinkBalloon() {
   arrow.velocityX = -4;
   arrow.lifetime = 100;
   arrow.scale = 0.3;
-  //arrowGroup.add(arrow);
+//  arrowGroup.add(arrow);
 
 }
